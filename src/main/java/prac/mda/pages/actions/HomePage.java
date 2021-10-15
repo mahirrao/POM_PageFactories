@@ -1,7 +1,9 @@
 package prac.mda.pages.actions;
 
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
+import prac.mda.Base.Constants;
 import prac.mda.Base.Page;
 import prac.mda.pages.locators.HomePageLocators;
 
@@ -11,22 +13,15 @@ public class HomePage extends Page
 	public HomePage()
 	{
 		this.home = new HomePageLocators();
-		PageFactory.initElements(driver, this.home);
+		AjaxElementLocatorFactory ajaxFactory = new AjaxElementLocatorFactory(driver, 10);
+		PageFactory.initElements(ajaxFactory, this.home);
 	}
 	
-	public void loginToSite()
+	public void searchJobs(String searchKey, String location)
 	{
-		home.signInMenu.click();
-	}
-	
-	public void goToFlights()
-	{
-		
-	}
-	
-	public void goToHotels()
-	{
-		
+		home.searchText.sendKeys(searchKey);
+		home.locationText.sendKeys(location);
+		home.searchButton.click();
 	}
 	
 //	Go to Flight and Hotel packages

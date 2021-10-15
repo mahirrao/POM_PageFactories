@@ -5,6 +5,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePageLocators
 {
-	@FindBy(xpath = "//button[@type = 'button']/div[text()= 'Sign in']")
-	public WebElement signInMenu;
+	@FindBy(css = "input#qsb-keyword-sugg")
+	public WebElement searchText;
+
+	@FindBy(css = "input#qsb-location-sugg")
+	public WebElement locationText;
+
+	@FindBy(css = "div.search-btn button")
+	public WebElement searchButton;
+	
+	
 }

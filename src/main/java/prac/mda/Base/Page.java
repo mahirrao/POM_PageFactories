@@ -30,6 +30,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
+import prac.mda.pages.actions.TopNavigation;
 import prac.mda.utilities.ExcelReader;
 import prac.mda.utilities.ExtentManager;
 import prac.mda.utilities.Utilities;
@@ -60,6 +61,7 @@ public class Page
 	public static ThreadLocal<ExtentTest> testReport = new ThreadLocal<ExtentTest>();
 	public static ExtentTest test;
 
+	public static TopNavigation topNavigation;
 //	public static CRMHeaders header;
 
 	public static boolean oldURL = false;
@@ -115,6 +117,8 @@ public class Page
 		driver.manage().window().maximize();
 //		driver.manage().timeouts().implicitlyWait(Constants.implicitWait, TimeUnit.SECONDS);
 //		wait = new WebDriverWait(driver, Constants.explicitWait);
+		
+		topNavigation = new TopNavigation();
 		
 	}
 
