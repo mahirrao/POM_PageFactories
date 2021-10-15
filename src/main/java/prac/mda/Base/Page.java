@@ -48,10 +48,6 @@ public class Page
 	public static WebDriver driver;
 	public static WebDriverWait wait;
 	public static Actions builder;
-	static public Properties config = new Properties();
-	public static Properties OR = new Properties();
-
-	public static FileInputStream fis;
 
 	public static String browser;
 
@@ -70,93 +66,73 @@ public class Page
 
 	public Page()
 	{
-		if (driver == null)
-		{
+		if (driver == null) {
 			test = extentReport.createTest("Page Object Model Test");
 			testReport.set(test);
-			try {
-				fis = new FileInputStream(baseDir + propertiesDir + "Config.properties");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				config.load(fis);
-				log.debug("Config File Loaded");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				fis = new FileInputStream(baseDir + propertiesDir + "ObjectRepository.properties");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				OR.load(fis);
-				log.debug("Object Repository file loaded");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			
 
-			// Jenkins env setup
 
-			if (System.getenv("browser") != null && !System.getenv("browser").isEmpty()) {
-				browser = System.getenv("browser");
-				System.out.println(browser);
-			} else
-				browser = config.getProperty("browser");
 
-			config.setProperty("browser", browser);
 
-			// Start the browser based upon the properties file
-
-			switch (browser) {
-			case "Firefox":
-				launchFirefoxBrowser();
-				break;
-
-			case "Chrome":
-				launchChromeBrowser();
-				break;
-
-			case "IE":
-				launchIEbrowser();
-				break;
-
-			default:
-				launchChromeBrowser();
-				break;
-			}
-
-			driver.get(config.getProperty("testURL"));
-			driver.manage().window().maximize();
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			wait = new WebDriverWait(driver, 10);
-			
 //			header = new CRMHeaders(driver);
 		}
 	}
 
-	private void launchFirefoxBrowser()
+	public static void initConfiguration()
 	{
-		System.setProperty("webdriver.gecko.driver",
-				baseDir + execDir + "geckodriver.exe");
+		// Jenkins env setup
+
+		if (System.getenv("browser") != null && !System.getenv("browser").isEmpty()) {
+			browser = System.getenv("browser");
+			System.out.println(browser);
+		} else
+			browser = Constants.browser;
+
+//		config.setProperty("browser", browser);
+		Constants.browser = browser;
+		
+		// Start the browser based upon the properties file
+
+		switch (browser) {
+		case "Firefox":
+			launchFirefoxBrowser();
+			break;
+
+		case "Chrome":
+			launchChromeBrowser();
+			break;
+
+		case "IE":
+			launchIEbrowser();
+			break;
+
+		default:
+			launchChromeBrowser();
+			break;
+		}
+		
+		driver.get(Constants.testURL);
+		driver.manage().window().maximize();
+//		driver.manage().timeouts().implicitlyWait(Constants.implicitWait, TimeUnit.SECONDS);
+//		wait = new WebDriverWait(driver, Constants.explicitWait);
+		
+	}
+
+	private static void launchFirefoxBrowser()
+	{
+		System.setProperty("webdriver.gecko.driver", baseDir + execDir + "geckodriver.exe");
 		driver = new FirefoxDriver();
 		log.info("Firefox browser launched");
 	}
 
-	private void launchIEbrowser()
+	private static void launchIEbrowser()
 	{
-		System.setProperty("webdriver.ie.driver",
-				baseDir + execDir + "IEDriverServer.exe");
+		System.setProperty("webdriver.ie.driver", baseDir + execDir + "IEDriverServer.exe");
 		driver = new InternetExplorerDriver();
 		log.info("IE browser launched");
 	}
 
-	private void launchChromeBrowser()
+	private static void launchChromeBrowser()
 	{
 		System.setProperty("webdriver.chrome.driver", baseDir + execDir + "chromedriver.exe");
 		/*
@@ -174,31 +150,28 @@ public class Page
 		log.info("Chrome browser launched");
 	}
 
-	public static void quit()
+	public static void quitBrowser()
 	{
 		if (driver != null) {
 			driver.quit();
 		}
 		log.info("Test Execution completed!!!");
 	}
-	
-	//Methods Library
-	
-		public static boolean isElementPresent(String locator)
-		{
-			By elementLocator =  getElement(locator);
-			try 
-			{
-				driver.findElement(elementLocator);
-				return true;
-			} 
-			catch (NoSuchElementException e)
-			{
-				e.printStackTrace();
-				return false;
-			}
-			
+
+	// Methods Library
+
+	public static boolean isElementPresent(String locator)
+	{
+		By elementLocator = getElement(locator);
+		try {
+			driver.findElement(elementLocator);
+			return true;
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return false;
 		}
+
+	}
 
 	public static String getCurrentDataTime()
 	{
@@ -256,12 +229,13 @@ public class Page
 	{
 		(driver.findElements(locator)).get(index).click();
 	}
-	
-	public static void click(String locator) {
-		By elementLocator =  getElement(locator);
+
+	public static void click(String locator)
+	{
+		By elementLocator = getElement(locator);
 
 		driver.findElement(elementLocator).click();
-		log.debug("Clicking on an Element : "+locator);
+		log.debug("Clicking on an Element : " + locator);
 		testReport.get().log(Status.INFO, "Clicking on : " + locator);
 //		test.log(LogStatus.INFO, "Clicking on : " + locator);
 	}
@@ -278,17 +252,18 @@ public class Page
 		return null;
 	}
 
-	public static void type(String locator, String value) {
-		By elementLocator =  getElement(locator);
+	public static void type(String locator, String value)
+	{
+		By elementLocator = getElement(locator);
 
 		driver.findElement(elementLocator).sendKeys(value);
-		log.debug("Typing in an Element : "+locator+" entered value as : "+value);
+		log.debug("Typing in an Element : " + locator + " entered value as : " + value);
 		testReport.get().log(Status.INFO, "Typing in : " + locator + " entered value as " + value);
-		
+
 //		test.log(LogStatus.INFO, "Typing in : " + locator + " entered value as " + value);
 
 	}
-	
+
 	public void type(By locator, String value)
 	{
 		driver.findElement(locator).sendKeys(value);
