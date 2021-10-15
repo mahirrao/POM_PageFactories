@@ -162,9 +162,9 @@ public class Page
 
 	public static boolean isElementPresent(String locator)
 	{
-		By elementLocator = getElement(locator);
+//		By elementLocator = getElement(locator);
 		try {
-			driver.findElement(elementLocator);
+//			driver.findElement(elementLocator);
 			return true;
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
@@ -232,31 +232,31 @@ public class Page
 
 	public static void click(String locator)
 	{
-		By elementLocator = getElement(locator);
+//		By elementLocator = getElement(locator);
 
-		driver.findElement(elementLocator).click();
+//		driver.findElement(elementLocator).click();
 		log.debug("Clicking on an Element : " + locator);
 		testReport.get().log(Status.INFO, "Clicking on : " + locator);
 //		test.log(LogStatus.INFO, "Clicking on : " + locator);
 	}
 
-	public static By getElement(String locator)
-	{
-		if (locator.endsWith("_CSS")) {
-			return By.cssSelector(OR.getProperty(locator));
-		} else if (locator.endsWith("_XPATH")) {
-			return By.xpath(OR.getProperty(locator));
-		} else if (locator.endsWith("_ID")) {
-			return By.id(OR.getProperty(locator));
-		}
-		return null;
-	}
+//	public static By getElement(String locator)
+//	{
+//		if (locator.endsWith("_CSS")) {
+//			return By.cssSelector(OR.getProperty(locator));
+//		} else if (locator.endsWith("_XPATH")) {
+//			return By.xpath(OR.getProperty(locator));
+//		} else if (locator.endsWith("_ID")) {
+//			return By.id(OR.getProperty(locator));
+//		}
+//		return null;
+//	}
 
 	public static void type(String locator, String value)
 	{
-		By elementLocator = getElement(locator);
+//		By elementLocator = getElement(locator);
 
-		driver.findElement(elementLocator).sendKeys(value);
+//		driver.findElement(elementLocator).sendKeys(value);
 		log.debug("Typing in an Element : " + locator + " entered value as : " + value);
 		testReport.get().log(Status.INFO, "Typing in : " + locator + " entered value as " + value);
 
