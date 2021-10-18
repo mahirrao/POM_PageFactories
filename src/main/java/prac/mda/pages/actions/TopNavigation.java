@@ -20,6 +20,7 @@ public class TopNavigation
 	
 	public LoginPage goToLoginMenu()
 	{
+		System.out.println("headerTabs.size: " + topNavigation.headerTabs.size());
 		topNavigation.logInMenu.click();
 		return new LoginPage();
 	}

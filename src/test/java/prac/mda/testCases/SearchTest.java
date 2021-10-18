@@ -13,6 +13,6 @@ public class SearchTest
 		Page.initConfiguration();
 		HomePage home = new HomePage();
 		home.searchJobs("Automation Testing", "Pune");
-//		Page.quitBrowser();
+		Page.quitBrowser();
 	}
 }

@@ -5,11 +5,17 @@
 		<listener class-name="org.uncommons.reportng.HTMLReporter" />
 		<listener
 			class-name="org.uncommons.reportng.JUnitXMLReporter" />
+		<listener class-name="prac.mda.errorCollectors.TestListenerAdapter" />
 		<!-- <listener class-name="prac.mda.listeners.CustomListeners" /> -->
 	</listeners>
 	<test thread-count="5" name="Login Test">
 		<classes>
 			<class name="prac.mda.testCases.LoginTest" />
+		 </classes>
+	</test><!-- Test -->
+	<test thread-count="5" name="Search Test">
+		<classes>
+			<class name="prac.mda.testCases.SearchTest" />
 		 </classes>
 	</test><!-- Test -->
 </suite> <!-- Suite -->
