@@ -39,6 +39,7 @@ public class CustomListeners extends Page implements ITestListener, ISuiteListen
 	{
 		test = extentReport.createTest(result.getTestClass().getName()+"     @TestCase : "+result.getMethod().getMethodName());
         testReport.set(test);
+        System.out.println("CustomListeners.onTestStart");
         
         System.out.println(result.getName() + ": " + Utilities.isTestRunnable(result.getMethod().getMethodName(), excelPath));
         
