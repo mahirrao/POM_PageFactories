@@ -66,19 +66,19 @@ public class Page
 
 	public static boolean oldURL = false;
 
-	public Page()
-	{
-		if (driver == null) {
-			test = extentReport.createTest("Page Object Model Test");
-			testReport.set(test);
-//			
-
-
-
-
-//			header = new CRMHeaders(driver);
-		}
-	}
+//	public Page()
+//	{
+//		if (driver == null) {
+//			test = extentReport.createTest("Page Object Model Test");
+//			testReport.set(test);
+////			
+//
+//
+//
+//
+////			header = new CRMHeaders(driver);
+//		}
+//	}
 
 	public static void initConfiguration()
 	{
