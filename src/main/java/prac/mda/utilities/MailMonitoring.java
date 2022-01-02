@@ -24,6 +24,8 @@ public class MailMonitoring
 			boolean debug = false;
 			Properties props = new Properties();
 			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.starttls.required", "true");
+			props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 			props.put("mail.smtp.EnableSSL.enable","true");
 			props.put("mail.smtp.auth", "true");
 

@@ -7,15 +7,15 @@ import prac.mda.Base.Page;
 
 public class BaseTest
 {
-	@BeforeTest
-	public void setUp()
-	{
-		Page.initConfiguration();
-	}
+//	@BeforeTest
+//	public void setUp()
+//	{
+//		Page.initConfiguration();
+//	}
 	
-	@AfterTest
-	public void tearDown()
-	{
-		Page.quitBrowser();		
-	}
+//	@AfterTest
+//	public void tearDown()
+//	{
+//		Page.quitBrowser();		
+//	}
 }

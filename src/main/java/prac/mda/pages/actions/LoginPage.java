@@ -19,8 +19,8 @@ public class LoginPage extends Page
 
 	public void loginToSite(String userName, String password)
 	{
-		login.userName.sendKeys(userName);
-		login.password.sendKeys(password);
-		login.logInButton.click();
+		type(login.userName, userName);
+		type(login.password, password);
+		click(login.logInButton);
 	}
 }

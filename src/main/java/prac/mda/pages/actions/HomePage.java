@@ -19,9 +19,9 @@ public class HomePage extends Page
 	
 	public void searchJobs(String searchKey, String location)
 	{
-		home.searchText.sendKeys(searchKey);
-		home.locationText.sendKeys(location);
-		home.searchButton.click();
+		type(home.searchText, searchKey);
+		type(home.locationText, location);
+		click(home.searchButton);
 	}
 	
 //	Go to Flight and Hotel packages

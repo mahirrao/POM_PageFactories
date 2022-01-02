@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +31,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import prac.mda.pages.actions.TopNavigation;
 import prac.mda.utilities.ExcelReader;
 import prac.mda.utilities.ExtentManager;
@@ -115,8 +117,32 @@ public class Page
 		
 		driver.get(Constants.testURL);
 		driver.manage().window().maximize();
-//		driver.manage().timeouts().implicitlyWait(Constants.implicitWait, TimeUnit.SECONDS);
-//		wait = new WebDriverWait(driver, Constants.explicitWait);
+		driver.manage().timeouts().implicitlyWait(Constants.implicitWait, TimeUnit.SECONDS);
+		wait = new WebDriverWait(driver, Constants.explicitWait);
+//		wait.until(ExpectedConditions.alertIsPresent(null));
+//		wait.until(ExpectedConditions.and(null));
+//		wait.until(ExpectedConditions.attributeContains(null));
+//		wait.until(ExpectedConditions.attributeToBe(null));
+//		wait.until(ExpectedConditions.attributeToBeNotEmpty(null));
+//		wait.until(ExpectedConditions.elementSelectionStateToBe(null));
+//		wait.until(ExpectedConditions.elementToBeClickable(null));
+//		wait.until(ExpectedConditions.elementToBeSelected(null));
+//		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(null));
+//		wait.until(ExpectedConditions.invisibilityOf(null));
+//		wait.until(ExpectedConditions.javaScriptThrowsNoExceptions(null));
+//		wait.until(ExpectedConditions.jsReturnsValue(null));
+//		wait.until(ExpectedConditions.numberOfElementsToBe(null));
+//		wait.until(ExpectedConditions.numberOfElementsToBeLessThan(null));
+//		wait.until(ExpectedConditions.numberOfWindowsToBe(null));
+//		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(null));
+//		wait.until(ExpectedConditions.presenceOfNestedElementLocatedBy(null));
+//		wait.until(ExpectedConditions.stalenessOf(null));
+//		wait.until(ExpectedConditions.textMatches(null));
+//		wait.until(ExpectedConditions.titleContains(null));
+//		wait.until(ExpectedConditions.urlContains(null));
+//		wait.until(ExpectedConditions.visibilityOfAllElements(null));
+//		wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(null));
+		
 		
 		topNavigation = new TopNavigation();
 		
@@ -124,7 +150,9 @@ public class Page
 
 	private static void launchFirefoxBrowser()
 	{
-		System.setProperty("webdriver.gecko.driver", baseDir + execDir + "geckodriver.exe");
+//		System.setProperty("webdriver.gecko.driver", baseDir + execDir + "geckodriver.exe");
+		
+		WebDriverManager.firefoxdriver().setup();
 		driver = new FirefoxDriver();
 		log.info("Firefox browser launched");
 	}
@@ -138,7 +166,9 @@ public class Page
 
 	private static void launchChromeBrowser()
 	{
-		System.setProperty("webdriver.chrome.driver", baseDir + execDir + "chromedriver.exe");
+//		System.setProperty("webdriver.chrome.driver", baseDir + execDir + "chromedriver.exe");
+		
+		WebDriverManager.chromedriver().setup();
 		/*
 		 * Removes the unwanted pop-ups at the start of the test
 		 */
@@ -221,56 +251,28 @@ public class Page
 	/*
 	 * Click method for individual element
 	 */
-	public void click(By locator)
+	public static void click(WebElement element)
 	{
-		driver.findElement(locator).click();
+		element.click();
+		log.info("Clicking on an Element : " + element);
+		testReport.get().log(Status.INFO, "Clicking on : " + element);
 	}
 
 	/*
 	 * Click method for element in an array list of elements
 	 */
-	public void click(By locator, int index)
+	public static void click(List<WebElement> elements, int index)
 	{
-		(driver.findElements(locator)).get(index).click();
+		elements.get(index).click();
+		log.info("Clicking on " + index + " Element from the list: " + elements);
+		testReport.get().log(Status.INFO, "Clicking on " + index + " Element from the list: " + elements);
 	}
 
-	public static void click(String locator)
+	public static void type(WebElement element, String value)
 	{
-//		By elementLocator = getElement(locator);
-
-//		driver.findElement(elementLocator).click();
-		log.debug("Clicking on an Element : " + locator);
-		testReport.get().log(Status.INFO, "Clicking on : " + locator);
-//		test.log(LogStatus.INFO, "Clicking on : " + locator);
-	}
-
-//	public static By getElement(String locator)
-//	{
-//		if (locator.endsWith("_CSS")) {
-//			return By.cssSelector(OR.getProperty(locator));
-//		} else if (locator.endsWith("_XPATH")) {
-//			return By.xpath(OR.getProperty(locator));
-//		} else if (locator.endsWith("_ID")) {
-//			return By.id(OR.getProperty(locator));
-//		}
-//		return null;
-//	}
-
-	public static void type(String locator, String value)
-	{
-//		By elementLocator = getElement(locator);
-
-//		driver.findElement(elementLocator).sendKeys(value);
-		log.debug("Typing in an Element : " + locator + " entered value as : " + value);
-		testReport.get().log(Status.INFO, "Typing in : " + locator + " entered value as " + value);
-
-//		test.log(LogStatus.INFO, "Typing in : " + locator + " entered value as " + value);
-
-	}
-
-	public void type(By locator, String value)
-	{
-		driver.findElement(locator).sendKeys(value);
+		element.sendKeys(value);
+		log.info("Typing in an Element : " + element + " entered value as : " + value);
+		testReport.get().log(Status.INFO, "Typing in : " + element + " entered value as " + value);
 	}
 
 	public static void hoverAndClick(WebElement hoverElement, By menuItemLocator)
