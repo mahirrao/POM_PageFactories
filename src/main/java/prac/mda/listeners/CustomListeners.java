@@ -130,7 +130,7 @@ public class CustomListeners extends Page implements ITestListener, ISuiteListen
 	{
 		MailMonitoring mail = new MailMonitoring();
 		try {
-			messageBody = "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/job/Data-driven%20Framework/Data-Driven_20framework_20report/";
+			messageBody = "http://" + InetAddress.getLocalHost().getHostAddress() + ":8080/job/POM_PageFactories/POM_20Page_20Factories_20report/";
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
